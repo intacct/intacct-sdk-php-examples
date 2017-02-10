@@ -32,14 +32,14 @@ With these XML objects you can get the data directly (as accessed through an arr
 
 However, if there is an error, you will not be returned data.  Instead you will need to catch any errors that are thrown.  See the Error Handling section for more information.
 
-###Error Handling
+##Error Handling
 There are several categories of errors that can occur.  These types of errors, the exceptions that would be thrown, and an example include the following:
 * Sender Login (ResultException)--e.g. incorrect sender id or sender password
 * User Login (OperationException)--e.g. incorrect user id, user password, company id, or session id
 * Missing data/argument (InvalidArgumentException)--e.g. required parameter not provided for a request
 * Business Logic (ResultException)--e.g. invalid query structure, transactional error and roll back occurs
 
-## Login Credentials
+##Login Credentials
 To make requests to Intacct Web Services, you will need to supply the Intacct credentials to the Intacct PHP SDK.
 There are a number of ways to do this:
 
@@ -50,5 +50,5 @@ There are a number of ways to do this:
 
 Whichever method you choose will depend on your situation.  For example, you may use a combination of two of these methods (e.g. Default Environment Variables for your sender credentials and User-defined Environment Variables for each of your company login credentials if you have multiple companies).  Keep in mind, no matter how you implement your login, it is most important to safely secure the credentials.
 
-### Custom Profiles
+###Custom Profiles
 The default profile is declared as `[default]` (see credentials.ini).  You may setup additional profiles though they are left up to you declare.  The use of different profiles is illustrated in the ErrorHandlingExample (where invalid data is passed to the client constructor just to show how profiles are setup; you, of course, would not want to pass invalid data).
