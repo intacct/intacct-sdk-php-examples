@@ -27,7 +27,8 @@ $loader = require __DIR__ . '\vendor\autoload.php';
 use Intacct\IntacctClient;
 use Intacct\Content;
 use Intacct\Functions\AccountsReceivable\CustomerCreate;
-
+use Intacct\Exception\ResultException;
+use Intacct\Exception\ResponseException;
 
 /**
  *
@@ -46,22 +47,22 @@ try {
 
     $content = new Content([$customerCreate1, $customerCreate2]);  // Wrap function calls in a Content instance.
 
-//    // Call the client instance to execute the Content.
-//    $response = $client->execute($content, false, '', false, []);
-//
-//    $simpleXMLresponses = $response->getOperation()->getResults();
-//    foreach ($simpleXMLresponses as $data) {
-//        var_dump($data);
-//    }
+    // Call the client instance to execute the Content.
+    $response = $client->execute($content, false, '', false, []);
 
-} catch (InvalidArgumentException $e) {
+    // print_r($response);  // Optionally print response information.
 
-    // print_r($e);  //Feel free to look at everything returned
+    // Optionally iterate response
+     $simpleXMLresponses = $response->getOperation()->getResults();
+        foreach ($simpleXMLresponses as $data) {
+           var_dump($data);
+     }
 
-    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
-    // production code.
-    echo "Example 3, " . $e->getMessage();
-
-    echo "\n\n"; // blank to separate examples.
+} catch (ResultException $e) {
+    print_r($e);
+} catch (ResponseException $e) {
+    print_r($e);
+} catch (\Exception $e) {
+    echo get_class($e) . ' ' . $e->getMessage();
 }
 

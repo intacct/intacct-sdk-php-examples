@@ -31,7 +31,7 @@ $loader = require __DIR__ . '\vendor\autoload.php';
 use Intacct\IntacctClient;
 use Intacct\QueryClient;
 use Intacct\Content;
-use Intacct\Exception;   // TODO: Ask to remove?
+use Intacct\Exception;
 use Intacct\Exception\OperationException;
 use Intacct\Exception\ResultException;
 use Intacct\Exception\ResponseException;
@@ -51,7 +51,7 @@ try {
     ]);
 
 } catch (ResponseException $e) {
-    // print_r($e);  // Optionally see everything returned.
+    // print_r($e);  // Optionally see everything thrown.
 
     // Exceptions are printed for demonstration purposes only -- more error handling is needed in
     // production code.
@@ -76,7 +76,7 @@ try {
 //    ]);
 //
 //} catch (OperationException $e) {
-//    // print_r($e);  // Optionally see everything returned.
+//    // print_r($e);  // Optionally see everything thrown.
 //
 //    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
 //    // production code.
@@ -107,7 +107,7 @@ try {
 //
 //} catch (InvalidArgumentException $e) {
 //
-//    // print_r($e);  // Optionally see everything returned.
+//    // print_r($e);  // Optionally see everything thrown.
 //
 //    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
 //    // production code.
@@ -135,7 +135,7 @@ try {
 //    $records = $queryClient->executeQuery($readByQuery); // Run the query.
 //
 //} catch (ResultException $e) {
-//    // print_r($e);  // Optionally see everything returned.
+//    // print_r($e);  // Optionally see everything thrown.
 //
 //    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
 //    // production code.
@@ -170,7 +170,7 @@ try {
 //    $response->getOperation()->getResult()->ensureStatusSuccess();
 //
 //} catch (ResultException $e) {
-//    // print_r($e);  // Optionally see everything returned.
+//    // print_r($e);  // Optionally see everything thrown.
 //
 //    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
 //    // production code.
