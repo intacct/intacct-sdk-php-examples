@@ -15,13 +15,23 @@
  */
 
 /**
- *  This example demonstrates the following:
- *  1. Create a logger and handler (in this case for a file stream)
- *  2. Pass logger to IntacctClient
- *  3. Execute your request (logging will be performed)
- *  4. Check transaction success, catch errors and log them
+ *  This example shows how to:
+ *  1. Create a logger and handler using Monolog (third-party logger).
+ *  2. Pass that logger to an IntacctClient instance.
+ *  3. Execute a request that will throw some errors.
+ *  4. Check transaction success, catch errors, and log them.
+ *
+ *  Prerequisites:
+ *  - You installed the PHP SDK: https://github.com/Intacct/intacct.github.io/tools/php-sdk-tutorial/
+ *  - You installed the Monolog logger: https://seldaek.github.io/monolog/
+ *  - You set up a default profile in intacct-sdk-php-examples/.intacct/credentials.ini.
+ *
+ *  See https://github.com/Intacct/intacct.github.io/tools/php-sdk/logging-example/
+ *  for detailed instructions on meeting the prerequisites and running this example.
+ *
  */
 
+// Load the dependencies for the SDK from the Composer vendor directory.
 $loader = require __DIR__ . '\vendor\autoload.php';
 
 use Monolog\Logger;
@@ -32,41 +42,43 @@ use Intacct\Exception\ResultException;
 use Intacct\Functions\Common\ReadByName;
 
 /**
- * Create your handler and logger
- *
+ * Create your handler and logger.
  */
-$log_path = fopen(__DIR__ . '\intacct.log', 'a+');
-$log_handle = new StreamHandler($log_path);
+$log_path = fopen(__DIR__ . '\intacct.html', 'a+'); // Create log file if it doesn't exist.
+$log_handle = new StreamHandler($log_path);         // Pass the log file to the stream handler.
+$log_handle->setFormatter(new Monolog\Formatter\HtmlFormatter()); // Use an HTML formatter.
 
-$logger = new Logger('intacct-sdk-php-examples');
+$logger = new Logger('intacct-sdk-php-examples'); // Name the logger.
 
-$logger->pushHandler($log_handle);
+$logger->pushHandler($log_handle); // Pass the stream handler to the logger.
 
 /**
- * Give your logger to the IntacctClient
+ * Pass the logger and your credentials to the IntacctClient instance.
  */
 try {
+    // A template credential.ini is in intacct-sdk-php-examples. Update the default profile
+    // with your information and put the file in a .intacct directory.
 
     $client = new IntacctClient([
-        'profile_file' => __DIR__ . '\.intacct\credentials.ini',
-        'logger' => $logger,
+        'profile_file' => __DIR__ . '\.intacct\credentials.ini', // Read credentials from file.
+        'logger' => $logger                                      // Pass in the logger.
     ]);
 
-    // Create your function to be executed
+    // Intacct function call.
     $readByName = new ReadByName();
-    $readByName->setObjectName('GLENTRIES');
+    $readByName->setObjectName('GLENTRIES'); // Use incorrect name (should be GLENTRY).
 
     $content = new Content([$readByName]);  // Wrap function calls in a Content instance.
 
-    // Call the client instance to execute the Content.
-    $response = $client->execute($content, true, '', false, []); //We'll just set this as a true transaction
+    // Call the client instance to execute the content.
+    $response = $client->execute($content, true, '', false, []); // Set this as a transaction (2nd param is true)
 
-    // No error thrown yet...so let's find out if the transaction was successful
+    // Check whether the transaction was successful
     $response->getOperation()->getResult()->ensureStatusSuccess();
 
 } catch (ResultException $e) {
     foreach ($e->getErrors() as $error) {
-        $logger->error($error . "\n"); //Just simply logs the error message.
+        $logger->error($error . "\n"); // Log the error messages.
     };
 }
 

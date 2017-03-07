@@ -15,44 +15,51 @@
  */
 
 /**
- * This advanced example shows how to do the following:
- * 1. Login to your company through QueryClient
- * 2. Execute a query on a APBILL and parse the results
+ *  This example shows how to:
+ *  1. Open a session by creating a query client that reads your Web Services and company credentials
+ *     from a local credentials file.
+ *  2. Create a query that operates on APBILL objects.
+ *  3. Run the query then parse and print the results.
+ *
+ *  See https://github.com/Intacct/intacct.github.io/tools/php-sdk/query-example/
+ *  for detailed instructions on running this example.
  */
 
+// Load the dependencies for the SDK from the Composer vendor directory.
 $loader = require __DIR__ . '\vendor\autoload.php';
 
 use Intacct\Functions\Common\ReadByQuery;
 use Intacct\QueryClient;
 
+// Create a QueryClient instance to establish a session with your company and perform a query.
 try {
-
-    // Loading login credentials from local ini file, but you can get this file from somewhere else (not local).
-    // Setup an QueryClient (which does a login)
+    // Read login credentials from a local ini file (you can use a remote file if you prefer).
+    // A template credential.ini is provided in intacct-sdk-php-examples -- update *only* the
+    // default profile with your information and put the file in a .intacct directory that you create.
     $queryClient = new QueryClient([
         'profile_file' => __DIR__ . '\.intacct\credentials.ini',
     ]);
 
-    $readByQuery = new ReadByQuery();
+    $readByQuery = new ReadByQuery();             // Construct a ReadByQuery instance --
+    $readByQuery->setObjectName('APBILL');        // on APBILL objects.
+    $readByQuery->setQuery("TOTALENTERED > 100"); // Query for totals greater than 100.
 
-    $readByQuery->setObjectName('APBILL');
 
-    $readByQuery->setQuery("TOTALENTERED > 100"); //And let's query for total entered greater than 100
+    $records = $queryClient->executeQuery($readByQuery); // Run the query.
 
-    $records = $queryClient->executeQuery($readByQuery); //Run that query
+    echo "Number of APBILL objects: " . $records->count() . "\n\n";  // Print the number of records.
 
-    echo "Number of APBILL objects: " . $records->count() . "\n\n";  //Print the number of records
-
-    foreach ($records as $record) {
-        echo "Record Created: " . $record['WHENCREATED'] . "\n"; //Just prints out when the record was created
-        echo "Amount posted: " . $record['TOTALENTERED'] . " " . $record['CURRENCY'] . "\n"; // the total amount entered
-        echo "Name: " . $record['VENDORNAME'] . "\n\n";            //and the VENDORNAME
+    foreach ($records as $record) {                                                          // For each record in the array show:
+        echo "Record Created: " . $record['WHENCREATED'] . "\n";                             // Creation date
+        echo "Amount posted: " . $record['TOTALENTERED'] . " " . $record['CURRENCY'] . "\n"; // Total amount and currency type
+        echo "Name: " . $record['VENDORNAME'] . "\n\n";                                      // VENDOR name
     }
 
+// Exceptions are printed for demonstration purposes only -- more error handling is needed in production code.
 } catch (\Intacct\Exception\ResultException $e) {
-    print_r($e); // Do more error handling here
+    print_r($e);
 } catch (\Intacct\Exception\ResponseException $e) {
-    print_r($e); //Do more error handling here
+    print_r($e);
 } catch (\Exception $e) {
-    echo get_class($e) . ' ' . $e->getMessage();  //Do more error handling here
+    echo get_class($e) . ' ' . $e->getMessage();
 }

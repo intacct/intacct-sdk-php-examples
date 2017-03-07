@@ -15,29 +15,38 @@
  */
 
 /**
- *  This example:
- *  1. Opens a session by creating an IntacctClient and providing login credentials
+ *  This example shows how to:
+ *  1. Open a session by creating an IntacctClient and providing login credentials
  *     loaded from a file.
- *  3. Configures a Read call on Vendor objects and wraps this in a Content object.
- *  4. Uses the IntacctClient instance to execute a request with the Content.
- *  5. Gets a count of Vendor objects from the returned result.
+ *  3. Configure a Read call on VENDOR objects and wrap this in a Content object.
+ *  4. Use the IntacctClient instance to execute a request with the Content.
+ *  5. Get a count of VENDOR objects from the returned result.
+ *
+ *  Prerequisites:
+ *  - You have a working knowledge of PHP.
+ *  - You meet the system requirements for the Intacct SDK for PHP.
+ *  - You have a PHP IDE as well as the Composer PHP dependency manager.
+ *  - You have installed the PHP SDK and its dependencies using Composer.
+ *
+ *  See https://github.com/Intacct/intacct.github.io/tools/php-sdk/getting-started/
+ *  for detailed instructions on meeting the prerequisites and running this example.
  */
 
 // Load the dependencies for the SDK from the Composer vendor directory.
-// See the 'Getting Started' doc if you have not yet installed the SDK dependencies.
+// See the 'Getting Started' tutorial if you have not yet installed the SDK dependencies.
 $loader = require __DIR__ . '\vendor\autoload.php';
 
 use Intacct\Functions\Common\Read;
 use Intacct\IntacctClient;
 use Intacct\Content;
-use Intacct\Exception;
 use Intacct\Exception\ResultException;
 use Intacct\Exception\ResponseException;
 
 // Wrap your calls in a try block to support error handling.
 try {
 
-    // Load the login credentials from a local config file.
+    // Load the login credentials from a local config file. A template login.cfg is provided in
+    // intacct-sdk-php-examples -- update with your information.
     $ini_array = parse_ini_file("login.cfg"); // Store this file in a secure location or use a
                                               // secure database or other secure methodology.
 
@@ -51,15 +60,15 @@ try {
     ]);
 
     $read = new Read('UniqueControlIdHere');  // A unique ID (GUID, timestamp, etc.) is recommended for recovery purposes.
-    $read->setObjectName('VENDOR');           // Read all Vendor objects.
+    $read->setObjectName('VENDOR');           // Read all VENDOR objects.
     $content = new Content([$read]);          // Wrap function calls in a Content instance.
 
-    // Call the client instance to execute the Content.
+    // Call the client instance to execute the content.
     $response = $client->execute($content, false, '', false, []); // A GUID will be created automatically for
                                                                   // the empty request controlId (third parameter).
                                                                   // Useful for error recovery when modifying data.
     echo "\nRead function control ID: " . $response->getControl()->getControlId() . "\n";
-    // Print the number of vendor objects.
+    // Print the number of VENDOR objects.
     echo "Number of vendor objects: " . $response->getOperation()->getResult()->getCount() . "\n";
 
   // Exceptions are printed for demonstration purposes only -- more error handling is needed in
