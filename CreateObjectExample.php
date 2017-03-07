@@ -16,10 +16,11 @@
 
 /**
  *  This example shows you how to do the following:
- *  1.
+ *  1. Create an IntacctClient based on a credentials file.
+ *  2. Use functions to create two CUSTOMER objects.
+ *  3. Wrap the functions in Content instance.
+ *  4. Execute the request and send the Content to the gateway.
  *
- *  See https://github.com/Intacct/intacct.github.io/tools/php-sdk/create-example/
- *  for detailed instructions on running this example.
  */
 
 $loader = require __DIR__ . '\vendor\autoload.php';
@@ -30,15 +31,14 @@ use Intacct\Functions\AccountsReceivable\CustomerCreate;
 use Intacct\Exception\ResultException;
 use Intacct\Exception\ResponseException;
 
-/**
- *
- */
+// Wrap your calls in a try block to support error handling.
 try {
 
     $client = new IntacctClient([
         'profile_file' => __DIR__ . '\.intacct\credentials.ini',
     ]);
 
+    // Create CUSTOMER objects.
     $customerCreate1 = new CustomerCreate();
     $customerCreate1->setCustomerName("Joshua Granley");
 
@@ -53,10 +53,10 @@ try {
     // print_r($response);  // Optionally print response information.
 
     // Optionally iterate response
-     $simpleXMLresponses = $response->getOperation()->getResults();
-        foreach ($simpleXMLresponses as $data) {
-           var_dump($data);
-     }
+    //  $simpleXMLresponses = $response->getOperation()->getResults();
+    //     foreach ($simpleXMLresponses as $data) {
+    //        var_dump($data);
+    //  }
 
 } catch (ResultException $e) {
     print_r($e);
