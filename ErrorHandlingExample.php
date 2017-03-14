@@ -40,13 +40,13 @@ use Intacct\Functions\Common\ReadByQuery;
 use Intacct\Functions\Common\ReadByName;
 
 /**
- * Example for invalid Web Services sender ID. ResponseException is thrown.
+ * Example 1 for invalid Web Services sender ID. ResponseException is thrown.
  * Uses the 'wrong_sender_id' profile in the .ini file.
  */
 try {
 
     $client = new IntacctClient([
-        'profile_name' => 'wrong_sender_id',
+        'profile_name' => 'wrong_sender_password',
         'profile_file' => __DIR__ . '\.intacct\credentials.ini',
     ]);
 
@@ -65,120 +65,120 @@ try {
 }
 
 /**
- * Example for invalid company user ID.  OperationException is thrown.
+ * Example 2 for invalid company user ID.  OperationException is thrown.
  * Uses the 'wrong_user_id' profile in the .ini file.
  */
-//try {
-//
-//    $client = new IntacctClient([
-//        'profile_name' => 'wrong_user_id',
-//        'profile_file' => __DIR__ . '\.intacct\credentials.ini',
-//    ]);
-//
-//} catch (OperationException $e) {
-//    // print_r($e);  // Optionally see everything thrown.
-//
-//    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
-//    // production code.
-//    echo "Example 2, " . $e->getMessage(). "\n";
-//
-//    foreach ($e->getErrors() as $error) {
-//        echo $error . "\n"; // Print the error message.
-//    };
-//
-//    echo "\n"; // Separate examples.
-//}
+try {
+
+    $client = new IntacctClient([
+        'profile_name' => 'wrong_user_password',
+        'profile_file' => __DIR__ . '\.intacct\credentials.ini',
+    ]);
+
+} catch (OperationException $e) {
+    // print_r($e);  // Optionally see everything thrown.
+
+    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
+    // production code.
+    echo "Example 2, " . $e->getMessage(). "\n";
+
+    foreach ($e->getErrors() as $error) {
+        echo $error . "\n"; // Print the error message.
+    };
+
+    echo "\n"; // Separate examples.
+}
 
 /**
- * Example for missing required parameter for object creation.  InvalidArgumentException is thrown.
+ * Example 3 for missing required parameter for object creation.  InvalidArgumentException is thrown.
  * Uses the default profile in the .ini file.
  */
-//try {
-//
-//    $client = new IntacctClient([
-//        'profile_file' => __DIR__ . '\.intacct\credentials.ini',
-//    ]);
-//
-//    $customerCreate = new CustomerCreate();  // Attempting to create a CUSTOMER without a NAME.
-//    $content = new Content([$customerCreate]);  // Wrap function calls in a Content instance.
-//
-//    // Call the client instance to execute the Content.
-//    $response = $client->execute($content, false, '', false, []);
-//
-//} catch (InvalidArgumentException $e) {
-//
-//    // print_r($e);  // Optionally see everything thrown.
-//
-//    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
-//    // production code.
-//    echo "Example 3, " . $e->getMessage();
-//
-//    echo "\n\n"; // Separate examples.
-//}
+try {
+
+    $client = new IntacctClient([
+        'profile_file' => __DIR__ . '\.intacct\credentials.ini',
+    ]);
+
+    $customerCreate = new CustomerCreate();  // Attempting to create a CUSTOMER without a NAME.
+    $content = new Content([$customerCreate]);  // Wrap function calls in a Content instance.
+
+    // Call the client instance to execute the Content.
+    $response = $client->execute($content, false, '', false, []);
+
+} catch (InvalidArgumentException $e) {
+
+    // print_r($e);  // Optionally see everything thrown.
+
+    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
+    // production code.
+    echo "Example 3, " . $e->getMessage();
+
+    echo "\n\n"; // Separate examples.
+}
 
 /**
- * Example for no data returned in query.  ResultException is thrown.
+ * Example 4 for no data returned in query.  ResultException is thrown.
  * Uses the default profile in the .ini file.
  */
-//try {
-//
-//    $queryClient = new QueryClient([
-//        'profile_file' => __DIR__ . '\.intacct\credentials.ini',
-//    ]);
-//
-//    $readByQuery = new ReadByQuery(); // Construct a ReadByQuery instance
-//
-//    $readByQuery->setObjectName('APBIL'); // Typo on 'APBILL'
-//
-//    $readByQuery->setQuery("TOTALENTERED > 100"); // Query for totals greater than 100.
-//
-//    $records = $queryClient->executeQuery($readByQuery); // Run the query.
-//
-//} catch (ResultException $e) {
-//    // print_r($e);  // Optionally see everything thrown.
-//
-//    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
-//    // production code.
-//    echo "Example 4, " . $e->getMessage(). "\n";
-//
-//    foreach ($e->getErrors() as $error) {
-//        echo $error . "\n"; // Print the error message.
-//    };
-//
-//    echo "\n"; // Separate examples.
-//}
+try {
+
+    $queryClient = new QueryClient([
+        'profile_file' => __DIR__ . '\.intacct\credentials.ini',
+    ]);
+
+    $readByQuery = new ReadByQuery(); // Construct a ReadByQuery instance
+
+    $readByQuery->setObjectName('APBIL'); // Typo on 'APBILL'
+
+    $readByQuery->setQuery("TOTALENTERED > 100"); // Query for totals greater than 100.
+
+    $records = $queryClient->executeQuery($readByQuery); // Run the query.
+
+} catch (ResultException $e) {
+    // print_r($e);  // Optionally see everything thrown.
+
+    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
+    // production code.
+    echo "Example 4, " . $e->getMessage(). "\n";
+
+    foreach ($e->getErrors() as $error) {
+        echo $error . "\n"; // Print the error message.
+    };
+
+    echo "\n"; // Separate examples.
+}
 
 /**
- * Example for transactional errors.  ResultException is thrown.
+ * Example 5 for transactional errors.  ResultException is thrown.
  * Uses the default profile in the .ini file.
  */
-//try {
-//
-//    $client = new IntacctClient([
-//        'profile_file' => __DIR__ . '\.intacct\credentials.ini',
-//    ]);
-//
-//    $readByName = new ReadByName();
-//    $readByName->setObjectName('GLENTRIES'); // Typo on 'GLENTRY'
-//
-//    $content = new Content([$readByName]);  // Wrap function calls in a Content instance.
-//
-//    // Call the client instance to execute the Content.
-//    $response = $client->execute($content, true, '', false, []); // Second param is true for a transaction
-//
-//    // No error thrown yet. Was the transaction successful?
-//    $response->getOperation()->getResult()->ensureStatusSuccess();
-//
-//} catch (ResultException $e) {
-//    // print_r($e);  // Optionally see everything thrown.
-//
-//    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
-//    // production code.
-//    echo "Example 5, " . $e->getMessage(). "\n";
-//
-//    foreach ($e->getErrors() as $error) {
-//        echo $error . "\n"; // Print the error message.
-//    };
-//
-//    echo "\n"; // Separate examples.
-//}
+try {
+
+    $client = new IntacctClient([
+        'profile_file' => __DIR__ . '\.intacct\credentials.ini',
+    ]);
+
+    $readByName = new ReadByName();
+    $readByName->setObjectName('GLENTRIES'); // Typo on 'GLENTRY'
+
+    $content = new Content([$readByName]);  // Wrap function calls in a Content instance.
+
+    // Call the client instance to execute the Content.
+    $response = $client->execute($content, true, '', false, []); // Second param is true for a transaction
+
+    // No error thrown yet. Was the transaction successful?
+    $response->getOperation()->getResult()->ensureStatusSuccess();
+
+} catch (ResultException $e) {
+    // print_r($e);  // Optionally see everything thrown.
+
+    // Exceptions are printed for demonstration purposes only -- more error handling is needed in
+    // production code.
+    echo "Example 5, " . $e->getMessage(). "\n";
+
+    foreach ($e->getErrors() as $error) {
+        echo $error . "\n"; // Print the error message.
+    };
+
+    echo "\n"; // Separate examples.
+}
