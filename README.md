@@ -9,6 +9,6 @@ These examples help you get started with the [Intacct PHP SDK](https://github.co
 | Intermediate | Create and update objects | CreateObjectExample.php
 | Intermediate | Handle various errors from your requests | ErrorHandlingExample.php
 | Intermediate | Log your requests with Monolog | LoggingExample.php
-| Advanced | Create custom objects | CreateCustomObjectExample.php
+| Advanced | Create custom objects | CreateCustomObjectExample.php 
 
 <!--- TODO: To get started with these examples, start [here](index.md). -->
