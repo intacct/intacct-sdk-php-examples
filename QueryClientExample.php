@@ -15,7 +15,7 @@
  */
 
 /**
- *  This example shows how to:
+ *  This example shows you how to do the following:
  *  1. Open a session by creating a query client that reads your Web Services and company credentials
  *     from a local credentials file.
  *  2. Create a query that operates on APBILL objects.
@@ -44,12 +44,12 @@ try {
     $readByQuery->setObjectName('APBILL');        // on APBILL objects.
     $readByQuery->setQuery("TOTALENTERED > 100"); // Query for totals greater than 100.
 
-
-    $records = $queryClient->executeQuery($readByQuery); // Run the query.
+    $records = $queryClient->executeQuery($readByQuery ); // Run the query.
 
     echo "Number of APBILL objects: " . $records->count() . "\n\n";  // Print the number of records.
 
-    foreach ($records as $record) {                                                          // For each record in the array show:
+    foreach ($records as $record) {
+        // For each record in the array show:
         echo "Record Created: " . $record['WHENCREATED'] . "\n";                             // Creation date
         echo "Amount posted: " . $record['TOTALENTERED'] . " " . $record['CURRENCY'] . "\n"; // Total amount and currency type
         echo "Name: " . $record['VENDORNAME'] . "\n\n";                                      // VENDOR name

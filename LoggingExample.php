@@ -15,7 +15,7 @@
  */
 
 /**
- *  This example shows how to:
+ *  This example shows how to do the following:
  *  1. Create a logger and handler using Monolog (third-party logger).
  *  2. Pass that logger to an IntacctClient instance.
  *  3. Execute a request that will throw some errors.

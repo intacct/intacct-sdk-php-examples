@@ -17,9 +17,12 @@
 /**
  *  This example shows you how to do the following:
  *  1. Create an IntacctClient based on a credentials file.
- *  2. Use functions to create two CUSTOMER objects.
+ *  2. Use functions to create one CUSTOMER object and update another.
  *  3. Wrap the functions in Content instance.
  *  4. Execute the request and send the Content to the gateway.
+ *
+ *  Note: An example that shows how to catch useful error info if using
+ *  a transaction is also provided but commented out.
  *
  */
 
@@ -28,35 +31,62 @@ $loader = require __DIR__ . '\vendor\autoload.php';
 use Intacct\IntacctClient;
 use Intacct\Content;
 use Intacct\Functions\AccountsReceivable\CustomerCreate;
+use Intacct\Functions\AccountsReceivable\CustomerUpdate;
 use Intacct\Exception\ResultException;
 use Intacct\Exception\ResponseException;
 
+
 // Wrap your calls in a try block to support error handling.
 try {
-
     $client = new IntacctClient([
-        'profile_file' => __DIR__ . '\.intacct\credentials.ini',
+        'profile_file' => __DIR__ . '\.intacct\credentials.ini'
     ]);
 
     // Create CUSTOMER objects.
-    $customerCreate1 = new CustomerCreate();
-    $customerCreate1->setCustomerName("Joshua Granley");
+    $customerCreate = new CustomerCreate();
+    $customerCreate->setCustomerName("Joshua Granley");
 
-    $customerCreate2 = new CustomerCreate();
-    $customerCreate2->setCustomerName("Ria Jones");
+    // Update CUSTOMER object
+    $customerUpdate = new CustomerUpdate();
+    $customerUpdate->setCustomerId(10206);  // Update with valid Customer ID!
+    $customerUpdate->setComments("Gold star customer!");
 
-    $content = new Content([$customerCreate1, $customerCreate2]);  // Wrap function calls in a Content instance.
+    $content = new Content([ // Wrap function calls in a Content instance.
+        $customerCreate,
+        $customerUpdate
+    ]);
 
     // Call the client instance to execute the Content.
-    $response = $client->execute($content, false, '', false, []);
+    $response = $client->execute($content);
 
-    // print_r($response);  // Optionally print response information.
+     // Iterate response
+      $simpleXMLresponses = $response->getOperation()->getResults();
+         foreach ($simpleXMLresponses as $data) {
+            var_dump($data);
+      }
 
-    // Optionally iterate response
-    //  $simpleXMLresponses = $response->getOperation()->getResults();
-    //     foreach ($simpleXMLresponses as $data) {
-    //        var_dump($data);
-    //  }
+/*
+    // Example for getting useful error information when using a transaction.
+    // Call the client instance to execute the Content. Using a transaction
+    $response = $client->execute($content, true, '', false, []);
+
+    // Get array of result objects
+    $results = $response->getOperation()->getResults();
+
+    // Iterate results with code for returning error that cause rollback in
+    // case the transaction fails.
+    $i = 0;
+    foreach ($results as $data) {
+        if($data->getStatus() == "aborted" && count($data->getErrors()) >  0) {
+            echo "Errors in result number $i have caused the rollback" . ":\n";
+            var_dump($data);
+        }
+        else {
+            var_dump($data);
+        }
+        $i++;
+    }
+*/
 
 } catch (ResultException $e) {
     print_r($e);

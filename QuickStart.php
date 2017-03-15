@@ -15,7 +15,7 @@
  */
 
 /**
- *  This example shows how to:
+ *  This example shows you how to do the following:
  *  1. Open a session by creating an IntacctClient and providing login credentials
  *     loaded from a file.
  *  3. Configure a Read call on VENDOR objects and wrap this in a Content object.
