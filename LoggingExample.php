@@ -64,11 +64,10 @@ try {
         'logger' => $logger                                      // Pass in the logger.
     ]);
 
-    // Intacct function call.
     $readByName = new ReadByName();
     $readByName->setObjectName('GLENTRIES'); // Use incorrect name (should be GLENTRY).
 
-    $content = new Content([$readByName]);  // Wrap function calls in a Content instance.
+    $content = new Content([$readByName]);  // Wrap FunctionInterface(s) in a Content instance.
 
     // Call the client instance to execute the content.
     $response = $client->execute($content, true, '', false, []); // Set this as a transaction (2nd param is true)

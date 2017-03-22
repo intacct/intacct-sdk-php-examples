@@ -51,7 +51,7 @@ try {
     $customerUpdate->setCustomerId(10206);  // Update with valid Customer ID!
     $customerUpdate->setComments("Gold star customer!");
 
-    $content = new Content([ // Wrap function calls in a Content instance.
+    $content = new Content([ // Wrap FunctionInterface(s) in a Content instance.
         $customerCreate,
         $customerUpdate
     ]);

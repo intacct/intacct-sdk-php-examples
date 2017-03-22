@@ -61,7 +61,7 @@ try {
 
     $read = new Read('UniqueControlIdHere');  // A unique ID (GUID, timestamp, etc.) is recommended for recovery purposes.
     $read->setObjectName('VENDOR');           // Read all VENDOR objects.
-    $content = new Content([$read]);          // Wrap function calls in a Content instance.
+    $content = new Content([$read]);          // Wrap FunctionInterface(s) in a Content instance.
 
     // Call the client instance to execute the content.
     $response = $client->execute($content, false, '', false, []); // A GUID will be created automatically for

@@ -18,7 +18,7 @@
  *  This example shows you how to do the following:
  * 1. Catch a ResponseException for an invalid login due to an incorrect Web Services sender ID or password.
  * 2. Catch an OperationException for an invalid login due to an incorrect company user ID or password.
- * 3. Catch an InvalidArgumentException caused by a missing parameter on a function call.
+ * 3. Catch an InvalidArgumentException caused by a missing parameter.
  * 4. Catch a ResultException caused by an invalid query.
  * 5. Catch a ResultException for an aborted transaction.
  *
@@ -100,7 +100,7 @@ try {
     ]);
 
     $customerCreate = new CustomerCreate();  // Attempting to create a CUSTOMER without a NAME.
-    $content = new Content([$customerCreate]);  // Wrap function calls in a Content instance.
+    $content = new Content([$customerCreate]);  // Wrap FunctionInterface(s) in a Content instance.
 
     // Call the client instance to execute the Content.
     $response = $client->execute($content, false, '', false, []);
@@ -161,7 +161,7 @@ try {
     $readByName = new ReadByName();
     $readByName->setObjectName('GLENTRIES'); // Typo on 'GLENTRY'
 
-    $content = new Content([$readByName]);  // Wrap function calls in a Content instance.
+    $content = new Content([$readByName]);  // Wrap FunctionInterface(s) in a Content instance.
 
     // Call the client instance to execute the Content.
     $response = $client->execute($content, true, '', false, []); // Second param is true for a transaction
