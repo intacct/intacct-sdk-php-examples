@@ -17,8 +17,8 @@
 /**
  *  This example shows you how to do the following:
  *  1. Create an IntacctClient based on a credentials file.
- *  2. Use functions to create one CUSTOMER object and update another.
- *  3. Wrap the functions in Content instance.
+ *  2. Use instances of SDK classes to create one CUSTOMER object and update another.
+ *  3. Wrap these operations in Content instance.
  *  4. Execute the request and send the Content to the gateway.
  *
  *  Note: An example that shows how to catch useful error info if using
