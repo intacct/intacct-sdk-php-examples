@@ -1,0 +1,22 @@
+{
+  "name": "intacct/intacct-sdk-php-examples",
+  "description": "Intacct SDK for PHP Examples",
+  "type": "project",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Intacct Corporation",
+      "homepage": "https://developer.intacct.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "intacct/intacct-sdk-php": "master-dev",
+    "monolog/monolog": "^1.22.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Intacct\\Example\\": "src/Example/"
+    }
+  }
+}

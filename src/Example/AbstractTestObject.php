@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2017 Intacct Corporation.
  *
@@ -14,56 +13,52 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-namespace CustomObjects;
+
+namespace Intacct\Example;
 
 use Intacct\Functions\AbstractFunction;
 
-
-abstract class AbstractMyCustomObject extends AbstractFunction
+abstract class AbstractTestObject extends AbstractFunction
 {
-    /** @var string */
-    protected $name;
 
     /** @var string */
-    protected $description;
+    const INTEGRATION_NAME = 'test_object';
+
+    /** @var int */
+    private $id;
 
     /**
-     * Get name
-     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+
+    /** @var string */
+    private $name;
+
+    /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * Set name field
-     *
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
-    }
-
-    /**
-     * Get  description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set  description
-     *
-     * @param string $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
     }
 }
