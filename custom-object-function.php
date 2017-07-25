@@ -25,7 +25,7 @@ try {
     $response = $client->execute($create);
     $result = $response->getResult();
 
-    $recordNo = intval($result->getData()->children()[0]->{'id'});
+    $recordNo = intval($result->getData()[0]->{'id'});
 
     echo "Created record ID $recordNo" . PHP_EOL;
 

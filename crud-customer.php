@@ -32,8 +32,8 @@ try {
     $response = $client->execute($create);
     $result = $response->getResult();
 
-    $customerId = strval($result->getData()->children()[0]->{'CUSTOMERID'});
-    $recordNo = intval($result->getData()->children()[0]->{'RECORDNO'});
+    $customerId = strval($result->getData()[0]->{'CUSTOMERID'});
+    $recordNo = intval($result->getData()[0]->{'RECORDNO'});
 
     echo "Created inactive customer ID $customerId" . PHP_EOL;
 

@@ -35,7 +35,7 @@ try {
 
     $logger->debug('Query successful - page 1', [
         'Total count' => $result->getTotalCount(),
-        'Data' => json_decode(json_encode($result->getData()->children()), 1),
+        'Data' => json_decode(json_encode($result->getData()), 1),
     ]);
 
     echo "Page 1 success! Number of vendor records found: " . $result->getTotalCount() . ". Number remaining: " . $result->getNumRemaining() . PHP_EOL;
@@ -52,7 +52,7 @@ try {
 
         $logger->debug('Read More successful - page ' . $i, [
             'Total remaining' => $result->getNumRemaining(),
-            'Data' => json_decode(json_encode($result->getData()->children()), 1),
+            'Data' => json_decode(json_encode($result->getData()), 1),
         ]);
         echo "Page $i success! Records remaining: " . $result->getNumRemaining() . PHP_EOL;
     }
