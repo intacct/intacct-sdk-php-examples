@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2017 Intacct Corporation.
+ * Copyright 2017 Sage Intacct, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -14,19 +14,15 @@
  * permissions and limitations under the License.
  */
 
-namespace CustomObjects;
+namespace Intacct\Example;
 
 use Intacct\Xml\XMLWriter;
-use InvalidArgumentException;
 
-
-class MyCustomObjectCreate extends AbstractMyCustomObject
+class TestObjectCreate extends AbstractTestObject
 {
+
     /**
-     * Write the function block XML
-     *
      * @param XMLWriter $xml
-     * @throw InvalidArgumentException
      */
     public function writeXml(XMLWriter &$xml)
     {
@@ -34,14 +30,13 @@ class MyCustomObjectCreate extends AbstractMyCustomObject
         $xml->writeAttribute('controlid', $this->getControlId());
 
         $xml->startElement('create');
-        $xml->startElement('test_object'); // Integration name in the Intacct system.
+        $xml->startElement(self::INTEGRATION_NAME); // Integration name in the system.
 
         if (!$this->getName()) {
-            throw new InvalidArgumentException('Custom name is required for create');
+            throw new \InvalidArgumentException('Name field is required for create');
         }
 
         $xml->writeElement('name', $this->getName(), true);
-        $xml->writeElement('description', $this->getDescription(), true);
 
         $xml->endElement(); // test_object
         $xml->endElement(); // create
