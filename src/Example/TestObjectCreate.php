@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2017 Intacct Corporation.
+ * Copyright 2017 Sage Intacct, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -30,7 +30,7 @@ class TestObjectCreate extends AbstractTestObject
         $xml->writeAttribute('controlid', $this->getControlId());
 
         $xml->startElement('create');
-        $xml->startElement(self::INTEGRATION_NAME); // Integration name in the Intacct system.
+        $xml->startElement(self::INTEGRATION_NAME); // Integration name in the system.
 
         if (!$this->getName()) {
             throw new \InvalidArgumentException('Name field is required for create');
