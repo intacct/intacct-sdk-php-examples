@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c450c7348205b535e25e9480745f7620",
     "content-hash": "4cd025a0ff9e9544da4b18fd6d5c83c5",
     "packages": [
         {
@@ -70,7 +69,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2017-06-22 18:50:49"
+            "time": "2017-06-22T18:50:49+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -121,7 +120,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-12-20 10:07:11"
+            "time": "2016-12-20T10:07:11+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -186,23 +185,24 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-03-20 17:10:46"
+            "time": "2017-03-20T17:10:46+00:00"
         },
         {
             "name": "intacct/intacct-sdk-php",
-            "version": "v2.0.2",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intacct/intacct-sdk-php.git",
-                "reference": "738aeaca5efd57a49ae056e8fb5d4b227dae7319"
+                "reference": "4b46fbea28c18ba2c46cf7287d55a65d36fad6d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intacct/intacct-sdk-php/zipball/738aeaca5efd57a49ae056e8fb5d4b227dae7319",
-                "reference": "738aeaca5efd57a49ae056e8fb5d4b227dae7319",
+                "url": "https://api.github.com/repos/Intacct/intacct-sdk-php/zipball/4b46fbea28c18ba2c46cf7287d55a65d36fad6d1",
+                "reference": "4b46fbea28c18ba2c46cf7287d55a65d36fad6d1",
                 "shasum": ""
             },
             "require": {
+                "ext-mbstring": "*",
                 "guzzlehttp/guzzle": "^6.2.3",
                 "php": ">=7.0",
                 "psr/log": "~1.0",
@@ -235,7 +235,7 @@
                 }
             ],
             "description": "Sage Intacct SDK for PHP",
-            "time": "2018-01-02 13:58:03"
+            "time": "2018-02-06T18:26:20+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -313,7 +313,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2017-06-19 01:22:40"
+            "time": "2017-06-19T01:22:40+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -361,7 +361,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2017-09-27 21:40:39"
+            "time": "2017-09-27T21:40:39+00:00"
         },
         {
             "name": "psr/http-message",
@@ -411,7 +411,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -458,20 +458,20 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "ramsey/uuid",
-            "version": "3.7.1",
+            "version": "3.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "45cffe822057a09e05f7bd09ec5fb88eeecd2334"
+                "reference": "44abcdad877d9a46685a3a4d221e3b2c4b87cb76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/45cffe822057a09e05f7bd09ec5fb88eeecd2334",
-                "reference": "45cffe822057a09e05f7bd09ec5fb88eeecd2334",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/44abcdad877d9a46685a3a4d221e3b2c4b87cb76",
+                "reference": "44abcdad877d9a46685a3a4d221e3b2c4b87cb76",
                 "shasum": ""
             },
             "require": {
@@ -482,17 +482,15 @@
                 "rhumsaa/uuid": "self.version"
             },
             "require-dev": {
-                "apigen/apigen": "^4.1",
-                "codeception/aspect-mock": "^1.0 | ^2.0",
+                "codeception/aspect-mock": "^1.0 | ~2.0.0",
                 "doctrine/annotations": "~1.2.0",
                 "goaop/framework": "1.0.0-alpha.2 | ^1.0 | ^2.1",
                 "ircmaxell/random-lib": "^1.1",
                 "jakub-onderka/php-parallel-lint": "^0.9.0",
-                "mockery/mockery": "^0.9.4",
+                "mockery/mockery": "^0.9.9",
                 "moontoast/math": "^1.1",
                 "php-mock/php-mock-phpunit": "^0.3|^1.1",
-                "phpunit/phpunit": "^4.7|>=5.0 <5.4",
-                "satooshi/php-coveralls": "^0.6.1",
+                "phpunit/phpunit": "^4.7|^5.0",
                 "squizlabs/php_codesniffer": "^2.3"
             },
             "suggest": {
@@ -540,7 +538,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2017-09-22 20:46:04"
+            "time": "2018-01-20T00:28:24+00:00"
         }
     ],
     "packages-dev": [],
