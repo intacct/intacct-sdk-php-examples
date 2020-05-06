@@ -17,22 +17,18 @@
 require __DIR__ . '/bootstrap.php';
 
 use Intacct\Functions\Common\Query;
-use Intacct\Functions\Common\QueryFilter\AndOperator;
-use Intacct\Functions\Common\QueryFilter\Filter;
-use Intacct\Functions\Common\QueryFilter\OrOperator;
-use Intacct\Functions\Common\QueryOrderBy\OrderBuilder;
 use Intacct\Functions\Common\QuerySelect\SelectBuilder;
 
 try {
 
-    $batchnoAndState = new AndOperator([ ( new Filter('BATCHNO') )->greaterthanorequalto('1'),
+   /* $batchnoAndState = new AndOperator([ ( new Filter('BATCHNO') )->greaterthanorequalto('1'),
                                          ( new Filter('STATE') )->equalto('Posted') ]);
 
     $journal = ( new Filter('JOURNAL') )->equalto('APJ');
 
     $filter = new OrOperator([ $journal, $batchnoAndState ]);
 
-    $fields = ( new SelectBuilder() )->fields([ 'BATCHNO', 'STATE' ])
+    $fields = ( new SelectBuilder() )->fields([ 'STATE' ])
                                      ->count('RECORDNO')
                                      ->getFields();
 
@@ -45,10 +41,31 @@ try {
                                       ->offset('1')
                                       ->pagesize('100')
                                       ->orderBy($order);
+*/
+    $fields = ( new SelectBuilder() )->fields([ 'CUSTOMERID' ])
+                                     ->count('RECORDNO')
+                                     ->getFields();
+
+    $res = ( new Query('unittest') )->select($fields)
+                                    ->from('ARINVOICE')
+                                    ->offset('1')
+                                    ->pagesize('100');
 
     $logger->info('Executing query to Intacct API');
     $response = $client->execute($res);
     $result = $response->getResult();
+
+    $json_data = json_decode(json_encode($result->getData()), 1);
+
+    if ( $json_data && is_array($json_data) && sizeof($json_data >= 1)) {
+        echo "Success! Total number of ARINVOICE objects:" . $result->getTotalCount();
+        echo "\n\n";
+        echo "Example ARINVOICE result: \n";
+        foreach ( $json_data[0] as $key => $value ) {
+            echo "    '$key' => '$value'\n";
+        }
+        echo "" . PHP_EOL;
+    }
 
     $logger->debug('Query successful', [
         'Company ID' => $response->getAuthentication()->getCompanyId(),
@@ -56,10 +73,8 @@ try {
         'Request control ID' => $response->getControl()->getControlId(),
         'Function control ID' => $result->getControlId(),
         'Total count' => $result->getTotalCount(),
-        'Data' => json_decode(json_encode($result->getData()), 1),
+        'Data' => $json_data,
     ]);
-
-    echo "Success! Number of GLBATCH objects found: " . $result->getTotalCount() . PHP_EOL;
 
 } catch (\Exception $ex) {
     $logger->error('An exception was thrown', [
