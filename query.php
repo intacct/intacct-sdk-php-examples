@@ -17,39 +17,34 @@
 require __DIR__ . '/bootstrap.php';
 
 use Intacct\Functions\Common\Query;
+use Intacct\Functions\Common\QueryFilter\AndOperator;
+use Intacct\Functions\Common\QueryFilter\Filter;
+use Intacct\Functions\Common\QueryFilter\OrOperator;
+use Intacct\Functions\Common\QueryOrderBy\OrderBuilder;
 use Intacct\Functions\Common\QuerySelect\SelectBuilder;
 
 try {
 
-   /* $batchnoAndState = new AndOperator([ ( new Filter('BATCHNO') )->greaterthanorequalto('1'),
-                                         ( new Filter('STATE') )->equalto('Posted') ]);
+    $customerId = new OrOperator([ ( new Filter('CUSTOMERID') )->like('c%'),
+                                   ( new Filter('CUSTOMERID') )->like('d%') ]);
 
-    $journal = ( new Filter('JOURNAL') )->equalto('APJ');
+    $whenDue = ( new Filter('WHENDUE') )->greaterthanorequalto('06/09/2003');
 
-    $filter = new OrOperator([ $journal, $batchnoAndState ]);
+    $filter = new AndOperator([ $whenDue, $customerId ]);
 
-    $fields = ( new SelectBuilder() )->fields([ 'STATE' ])
-                                     ->count('RECORDNO')
+    $order = ( new OrderBuilder())->descending('CUSTOMERID')->getOrders();
+
+    $fields = ( new SelectBuilder() )->fields([ 'CUSTOMERID', 'CUSTOMERNAME', 'WHENDUE' ])
+                                     ->sum('TOTALDUE')
                                      ->getFields();
 
-    $order = ( new OrderBuilder())->descending('BATCHNO')->getOrders();
-
-    $res = ( new Query('unittest') )->select($fields)
-                                      ->from('GLBATCH')
-                                      ->filter($filter)
-                                      ->caseInsensitive(true)
-                                      ->offset('1')
-                                      ->pagesize('100')
-                                      ->orderBy($order);
-*/
-    $fields = ( new SelectBuilder() )->fields([ 'CUSTOMERID' ])
-                                     ->count('RECORDNO')
-                                     ->getFields();
-
-    $res = ( new Query('unittest') )->select($fields)
+    $res = ( new Query() )->select($fields)
                                     ->from('ARINVOICE')
+                                    ->filter($filter)
+                                    ->caseInsensitive(true)
                                     ->offset('1')
-                                    ->pagesize('100');
+                                    ->pagesize('100')
+                                    ->orderBy($order);
 
     $logger->info('Executing query to Intacct API');
     $response = $client->execute($res);
