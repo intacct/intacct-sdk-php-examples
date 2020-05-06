@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2018 Sage Intacct, Inc.
+ * Copyright 2020 Sage Intacct, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -20,7 +20,6 @@ use Intacct\Functions\AccountsReceivable\CustomerCreate;
 use Intacct\Functions\AccountsReceivable\CustomerDelete;
 use Intacct\Functions\AccountsReceivable\CustomerUpdate;
 use Intacct\Functions\Common\Read;
-use Intacct\Functions\Common\ReadByName;
 
 try {
     $logger->info('Executing CRUD customer functions to API');

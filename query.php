@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2018 Sage Intacct, Inc.
+ * Copyright 2020 Sage Intacct, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -22,14 +22,8 @@ use Intacct\Functions\Common\QueryFilter\Filter;
 use Intacct\Functions\Common\QueryFilter\OrOperator;
 use Intacct\Functions\Common\QueryOrderBy\OrderBuilder;
 use Intacct\Functions\Common\QuerySelect\SelectBuilder;
-use Intacct\Xml\XMLWriter;
 
 try {
-    $xml = new XMLWriter();
-    $xml->openMemory();
-    $xml->setIndent(true);
-    $xml->setIndentString('    ');
-    $xml->startDocument();
 
     $batchnoAndState = new AndOperator([ ( new Filter('BATCHNO') )->greaterthanorequalto('1'),
                                          ( new Filter('STATE') )->equalto('Posted') ]);
