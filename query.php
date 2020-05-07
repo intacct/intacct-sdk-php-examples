@@ -60,6 +60,8 @@ try {
             echo "    '$key' => '$value'\n";
         }
         echo "" . PHP_EOL;
+    } else {
+        echo "You have zero ARINVOICE objects that met the query criteria";
     }
 
     $logger->debug('Query successful', [
