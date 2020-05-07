@@ -25,16 +25,12 @@ use Intacct\Functions\Common\QuerySelect\SelectBuilder;
 
 try {
 
-    $customerId = new OrOperator([ ( new Filter('CUSTOMERID') )->like('c%'),
+    $filter = new OrOperator([ ( new Filter('CUSTOMERID') )->like('c%'),
                                    ( new Filter('CUSTOMERID') )->like('d%') ]);
-
-    $whenDue = ( new Filter('WHENDUE') )->greaterthanorequalto('06/09/2003');
-
-    $filter = new AndOperator([ $whenDue, $customerId ]);
 
     $order = ( new OrderBuilder())->descending('CUSTOMERID')->getOrders();
 
-    $fields = ( new SelectBuilder() )->fields([ 'CUSTOMERID', 'CUSTOMERNAME', 'WHENDUE' ])
+    $fields = ( new SelectBuilder() )->fields([ 'CUSTOMERID', 'CUSTOMERNAME' ])
                                      ->sum('TOTALDUE')
                                      ->getFields();
 
