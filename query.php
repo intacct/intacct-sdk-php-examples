@@ -47,7 +47,7 @@ try {
 
     $json_data = json_decode(json_encode($result->getData()), 1);
 
-    if ( $json_data && is_array($json_data) && sizeof($json_data >= 1)) {
+    if ( $json_data && is_array($json_data) && sizeof($json_data) >= 1) {
         echo "Success! Total number of ARINVOICE objects:" . $result->getTotalCount();
         echo "\n\n";
         echo "Example ARINVOICE result: \n";
