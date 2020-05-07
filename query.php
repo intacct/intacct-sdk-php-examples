@@ -42,7 +42,6 @@ try {
                                     ->from('ARINVOICE')
                                     ->filter($filter)
                                     ->caseInsensitive(true)
-                                    ->offset('1')
                                     ->pagesize('100')
                                     ->orderBy($order);
 
