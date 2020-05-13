@@ -11,7 +11,7 @@
   ],
   "require": {
     "php": ">=7.0",
-    "intacct/intacct-sdk-php": "v2.0.*",
+    "intacct/intacct-sdk-php": "dev-query-support as v2.1.1",
     "monolog/monolog": "^1.22.0"
   },
   "autoload": {

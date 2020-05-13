@@ -38,7 +38,7 @@ try {
                                     ->from('ARINVOICE')
                                     ->filter($filter)
                                     ->caseInsensitive(true)
-                                    ->pagesize('100')
+                                    ->pageSize('100')
                                     ->orderBy($order);
 
     $logger->info('Executing query to Intacct API');
