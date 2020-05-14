@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2020 Sage Intacct, Inc.
  *
@@ -17,7 +18,6 @@
 require __DIR__ . '/bootstrap.php';
 
 use Intacct\Functions\Common\Query;
-use Intacct\Functions\Common\QueryFilter\AndOperator;
 use Intacct\Functions\Common\QueryFilter\Filter;
 use Intacct\Functions\Common\QueryFilter\OrOperator;
 use Intacct\Functions\Common\QueryOrderBy\OrderBuilder;
@@ -26,7 +26,7 @@ use Intacct\Functions\Common\QuerySelect\SelectBuilder;
 try {
 
     $filter = new OrOperator([ ( new Filter('CUSTOMERID') )->like('c%'),
-                                   ( new Filter('CUSTOMERID') )->like('d%') ]);
+                               ( new Filter('CUSTOMERID') )->like('1%') ]);
 
     $order = ( new OrderBuilder())->descending('CUSTOMERID')->getOrders();
 
@@ -35,11 +35,11 @@ try {
                                      ->getFields();
 
     $res = ( new Query() )->select($fields)
-                                    ->from('ARINVOICE')
-                                    ->filter($filter)
-                                    ->caseInsensitive(true)
-                                    ->pageSize('100')
-                                    ->orderBy($order);
+                          ->from('ARINVOICE')
+                          ->filter($filter)   // Comment out this line to see all invoices without any filtering
+                          ->caseInsensitive(true)
+                          ->pageSize('100')
+                          ->orderBy($order);
 
     $logger->info('Executing query to Intacct API');
     $response = $client->execute($res);
@@ -48,15 +48,18 @@ try {
     $json_data = json_decode(json_encode($result->getData()), 1);
 
     if ( $json_data && is_array($json_data) && sizeof($json_data) >= 1) {
-        echo "Success! Total number of ARINVOICE objects:" . $result->getTotalCount();
+        echo "Success! Total number of ARINVOICE objects: " . $result->getTotalCount();
         echo "\n\n";
-        echo "Example ARINVOICE result: \n";
+        echo "First ARINVOICE result found: \n";
         foreach ( $json_data[0] as $key => $value ) {
             echo "    '$key' => '$value'\n";
         }
+        echo "See the log file (logs/intacct.html) for the complete list of results. \n";
         echo "" . PHP_EOL;
     } else {
-        echo "You have zero ARINVOICE objects that met the query criteria";
+        echo "The query executed, but no ARINVOICE objects met the query criteria.\n";
+        echo "Either modify the filter or comment it out from the query.\n";
+        echo "See the log file (logs/intacct.html) for the XML request.";
     }
 
     $logger->debug('Query successful', [
@@ -67,7 +70,6 @@ try {
         'Total count' => $result->getTotalCount(),
         'Data' => $json_data,
     ]);
-
 } catch (\Exception $ex) {
     $logger->error('An exception was thrown', [
         get_class($ex) => $ex->getMessage(),
