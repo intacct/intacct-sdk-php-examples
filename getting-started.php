@@ -17,40 +17,46 @@
 
 require __DIR__ . '/bootstrap.php';
 
-use Intacct\Functions\Common\ReadByQuery;
+use Intacct\Functions\Common\Read;
 
 try {
-    $query = new ReadByQuery();
-    $query->setObjectName('VENDOR');
-    $query->setPageSize(1); // Keep the count to just 1 for the example
-    $query->setFields([
-        'RECORDNO',
-        'VENDORID',
-        'NAME',
-    ]);
+    $read = new Read();
+    $read->setObjectName('CUSTOMER');
+    $read->setFields([
+                         'CUSTOMERID',
+                         'NAME',
+                         'RECORDNO',
+                         'STATUS',
+                     ]);
+    $read->setKeys([
+                       33          // Replace with the record number of a customer in your company
+                   ]);
 
     $logger->info('Executing query to Intacct API');
-    $response = $client->execute($query);
+    $response = $client->execute($read);
     $result = $response->getResult();
 
     $logger->debug('Query successful', [
-        'Company ID' => $response->getAuthentication()->getCompanyId(),
-        'User ID' => $response->getAuthentication()->getUserId(),
-        'Request control ID' => $response->getControl()->getControlId(),
+        'Company ID'          => $response->getAuthentication()
+                                          ->getCompanyId(),
+        'User ID'             => $response->getAuthentication()
+                                          ->getUserId(),
+        'Request control ID'  => $response->getControl()
+                                          ->getControlId(),
         'Function control ID' => $result->getControlId(),
-        'Total count' => $result->getTotalCount(),
-        'Data' => json_decode(json_encode($result->getData()), 1),
+        'Total count'         => $result->getTotalCount(),
+        'Data'                => json_decode(json_encode($result->getData()), 1),
     ]);
 
-    echo "Success! Number of vendor objects found: " . $result->getTotalCount() . PHP_EOL;
-
-} catch (\Intacct\Exception\ResponseException $ex) {
+    echo "Result: ";
+    echo sprintf("%s%s", json_encode($result->getData()), PHP_EOL);
+} catch ( \Intacct\Exception\ResponseException $ex ) {
     $logger->error('An Intacct response exception was thrown', [
         get_class($ex) => $ex->getMessage(),
-        'Errors' => $ex->getErrors(),
+        'Errors'       => $ex->getErrors(),
     ]);
     echo 'Failed! ' . $ex->getMessage();
-} catch (\Exception $ex) {
+} catch ( \Exception $ex ) {
     $logger->error('An exception was thrown', [
         get_class($ex) => $ex->getMessage(),
     ]);

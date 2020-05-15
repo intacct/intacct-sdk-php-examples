@@ -48,18 +48,17 @@ try {
     $json_data = json_decode(json_encode($result->getData()), 1);
 
     if ( $json_data && is_array($json_data) && sizeof($json_data) >= 1) {
-        echo "Success! Total number of ARINVOICE objects: " . $result->getTotalCount();
-        echo "\n\n";
-        echo "First ARINVOICE result found: \n";
+        echo "Success! Total number of ARINVOICE objects: " . $result->getTotalCount() . PHP_EOL . PHP_EOL;
+        echo "First ARINVOICE result found: " . PHP_EOL;
         foreach ( $json_data[0] as $key => $value ) {
-            echo "    '$key' => '$value'\n";
+            echo "    '$key' => '$value'" . PHP_EOL;
         }
-        echo "See the log file (logs/intacct.html) for the complete list of results. \n";
+        echo "See the log file (logs/intacct.html) for the complete list of results." . PHP_EOL;
         echo "" . PHP_EOL;
     } else {
-        echo "The query executed, but no ARINVOICE objects met the query criteria.\n";
-        echo "Either modify the filter or comment it out from the query.\n";
-        echo "See the log file (logs/intacct.html) for the XML request.";
+        echo "The query executed, but no ARINVOICE objects met the query criteria." . PHP_EOL;
+        echo "Either modify the filter or comment it out from the query." . PHP_EOL;
+        echo "See the log file (logs/intacct.html) for the XML request." . PHP_EOL;
     }
 
     $logger->debug('Query successful', [
