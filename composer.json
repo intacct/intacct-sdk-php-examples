@@ -9,9 +9,15 @@
       "homepage": "https://developer.intacct.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "github",
+      "url": "https://github.com/Intacct/intacct-sdk-php"
+    }
+  ],
   "require": {
     "php": ">=7.0",
-    "intacct/intacct-sdk-php": "dev-query-support as v2.1.1",
+    "intacct/intacct-sdk-php": "dev-newquery as v2.1.1",
     "monolog/monolog": "^1.22.0"
   },
   "autoload": {

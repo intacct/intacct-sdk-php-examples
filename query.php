@@ -17,11 +17,11 @@
 
 require __DIR__ . '/bootstrap.php';
 
-use Intacct\Functions\Common\Query;
-use Intacct\Functions\Common\QueryFilter\Filter;
-use Intacct\Functions\Common\QueryFilter\OrOperator;
-use Intacct\Functions\Common\QueryOrderBy\OrderBuilder;
-use Intacct\Functions\Common\QuerySelect\SelectBuilder;
+use Intacct\Functions\Common\NewQuery\Query;
+use Intacct\Functions\Common\NewQuery\QueryFilter\Filter;
+use Intacct\Functions\Common\NewQuery\QueryFilter\OrOperator;
+use Intacct\Functions\Common\NewQuery\QueryOrderBy\OrderBuilder;
+use Intacct\Functions\Common\NewQuery\QuerySelect\SelectBuilder;
 
 try {
 

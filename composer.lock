@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f12692e788e74b70b7429a734688261d",
+    "content-hash": "c2e4e17b5a39bedb5ca27c7c118b0c04",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -197,16 +197,16 @@
         },
         {
             "name": "intacct/intacct-sdk-php",
-            "version": "dev-query-support",
+            "version": "dev-newquery",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intacct/intacct-sdk-php.git",
-                "reference": "0fb444b15c1be2b6559865e8bcef9812561ed4db"
+                "reference": "28770ffe26278d8eeebe6f77607cc9679d411b08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intacct/intacct-sdk-php/zipball/0fb444b15c1be2b6559865e8bcef9812561ed4db",
-                "reference": "0fb444b15c1be2b6559865e8bcef9812561ed4db",
+                "url": "https://api.github.com/repos/Intacct/intacct-sdk-php/zipball/28770ffe26278d8eeebe6f77607cc9679d411b08",
+                "reference": "28770ffe26278d8eeebe6f77607cc9679d411b08",
                 "shasum": ""
             },
             "require": {
@@ -216,7 +216,7 @@
                 "ext-simplexml": "*",
                 "ext-xmlwriter": "*",
                 "guzzlehttp/guzzle": "^6.2.3",
-                "php": ">=7.2",
+                "php": ">=7.0",
                 "psr/log": "~1.0",
                 "ramsey/uuid": "^3.6.1"
             },
@@ -224,7 +224,7 @@
                 "mikey179/vfsstream": "^1.6.4",
                 "monolog/monolog": "^1.22.0",
                 "phpmd/phpmd": "@stable",
-                "phpunit/phpunit": "~7.0",
+                "phpunit/phpunit": "^5.7.21",
                 "squizlabs/php_codesniffer": "3.*"
             },
             "suggest": {
@@ -236,7 +236,11 @@
                     "Intacct\\": "src/Intacct/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Intacct\\Tests\\": "test/Intacct/"
+                }
+            },
             "license": [
                 "Apache-2.0"
             ],
@@ -247,7 +251,11 @@
                 }
             ],
             "description": "Sage Intacct SDK for PHP",
-            "time": "2020-05-13T17:24:06+00:00"
+            "support": {
+                "source": "https://github.com/Intacct/intacct-sdk-php/tree/newquery",
+                "issues": "https://github.com/Intacct/intacct-sdk-php/issues"
+            },
+            "time": "2020-05-20T16:05:04+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -892,7 +900,7 @@
         {
             "alias": "v2.1.1",
             "alias_normalized": "2.1.1.0",
-            "version": "dev-query-support",
+            "version": "dev-newquery",
             "package": "intacct/intacct-sdk-php"
         }
     ],
