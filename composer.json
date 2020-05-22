@@ -18,7 +18,8 @@
   "require": {
     "php": ">=7.0",
     "intacct/intacct-sdk-php": "dev-newquery as v2.1.1",
-    "monolog/monolog": "^1.22.0"
+    "monolog/monolog": "^1.22.0",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {

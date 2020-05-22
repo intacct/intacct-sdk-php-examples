@@ -17,6 +17,7 @@
 namespace Intacct\Example;
 
 use Intacct\Xml\XMLWriter;
+use InvalidArgumentException;
 
 class TestObjectCreate extends AbstractTestObject
 {
@@ -24,7 +25,7 @@ class TestObjectCreate extends AbstractTestObject
     /**
      * @param XMLWriter $xml
      */
-    public function writeXml(XMLWriter $xml)
+    public function writeXml(XMLWriter &$xml)
     {
         $xml->startElement('function');
         $xml->writeAttribute('controlid', $this->getControlId());
@@ -33,7 +34,7 @@ class TestObjectCreate extends AbstractTestObject
         $xml->startElement(self::INTEGRATION_NAME); // Integration name in the system.
 
         if (!$this->getName()) {
-            throw new \InvalidArgumentException('Name field is required for create');
+            throw new InvalidArgumentException('Name field is required for create');
         }
 
         $xml->writeElement('name', $this->getName(), true);

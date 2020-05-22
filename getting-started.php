@@ -17,6 +17,7 @@
 
 require __DIR__ . '/bootstrap.php';
 
+use Intacct\Exception\ResponseException;
 use Intacct\Functions\Common\Read;
 
 try {
@@ -50,13 +51,13 @@ try {
 
     echo "Result: ";
     echo sprintf("%s%s", json_encode($result->getData()), PHP_EOL);
-} catch ( \Intacct\Exception\ResponseException $ex ) {
+} catch (ResponseException $ex ) {
     $logger->error('An Intacct response exception was thrown', [
         get_class($ex) => $ex->getMessage(),
         'Errors'       => $ex->getErrors(),
     ]);
     echo 'Failed! ' . $ex->getMessage();
-} catch ( \Exception $ex ) {
+} catch (Exception $ex ) {
     $logger->error('An exception was thrown', [
         get_class($ex) => $ex->getMessage(),
     ]);

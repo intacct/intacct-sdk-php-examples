@@ -47,8 +47,8 @@ try {
 
     $json_data = json_decode(json_encode($result->getData()), 1);
 
-    if ( $json_data && is_array($json_data) && sizeof($json_data) >= 1) {
-        echo "Success! Total number of ARINVOICE objects: " . $result->getTotalCount() . PHP_EOL . PHP_EOL;
+    if ( $json_data && (is_array($json_data)) && (count($json_data) >= 1)) {
+        echo "Success! Total number of results: " . $result->getTotalCount() . PHP_EOL . PHP_EOL;
         echo "First ARINVOICE result found: " . PHP_EOL;
         foreach ( $json_data[0] as $key => $value ) {
             echo "    '$key' => '$value'" . PHP_EOL;
@@ -69,7 +69,7 @@ try {
         'Total count' => $result->getTotalCount(),
         'Data' => $json_data,
     ]);
-} catch (\Exception $ex) {
+} catch (Exception $ex) {
     $logger->error('An exception was thrown', [
         get_class($ex) => $ex->getMessage(),
     ]);

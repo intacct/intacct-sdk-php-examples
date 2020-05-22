@@ -16,7 +16,7 @@
 
 require __DIR__ . '/bootstrap.php';
 
-use Intacct\Functions\Common\Query\Comparison\EqualTo\EqualToString;
+use Intacct\Exception\ResponseException;
 use Intacct\Functions\Common\ReadByQuery;
 use Intacct\Functions\Common\ReadMore;
 
@@ -59,13 +59,13 @@ try {
 
     echo "Successfully read $i pages" . PHP_EOL;
 
-} catch (\Intacct\Exception\ResponseException $ex) {
+} catch (ResponseException $ex) {
     $logger->error('An Intacct response exception was thrown', [
         get_class($ex) => $ex->getMessage(),
         'Errors' => $ex->getErrors(),
     ]);
     echo 'Failed! ' . $ex->getMessage();
-} catch (\Exception $ex) {
+} catch (Exception $ex) {
     $logger->error('An exception was thrown', [
         get_class($ex) => $ex->getMessage(),
     ]);

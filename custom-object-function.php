@@ -14,28 +14,31 @@
  * permissions and limitations under the License.
  */
 
+use Intacct\Example\TestObjectCreate;
+use Intacct\Exception\ResponseException;
+
 require __DIR__ . '/bootstrap.php';
 
 try {
     $logger->info('Executing create test object function to API');
 
-    $create = new \Intacct\Example\TestObjectCreate();
+    $create = new TestObjectCreate();
     $create->setName('hello world');
 
     $response = $client->execute($create);
     $result = $response->getResult();
 
-    $recordNo = intval($result->getData()[0]->{'id'});
+    $recordNo = (int) $result->getData()[0]->{'id'};
 
     echo "Created record ID $recordNo" . PHP_EOL;
 
-} catch (\Intacct\Exception\ResponseException $ex) {
+} catch (ResponseException $ex) {
     $logger->error('An Intacct response exception was thrown', [
         get_class($ex) => $ex->getMessage(),
         'Errors' => $ex->getErrors(),
     ]);
     echo 'Failed! ' . $ex->getMessage();
-} catch (\Exception $ex) {
+} catch (Exception $ex) {
     $logger->error('An exception was thrown', [
         get_class($ex) => $ex->getMessage(),
     ]);
