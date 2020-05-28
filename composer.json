@@ -11,9 +11,8 @@
   ],
   "require": {
     "php": ">=7.0",
-    "intacct/intacct-sdk-php": "^2.2.0",
-    "monolog/monolog": "^1.22.0",
-    "ext-json": "*"
+    "intacct/intacct-sdk-php": "^2.1.1",
+    "monolog/monolog": "^1.22.0"
   },
   "autoload": {
     "psr-4": {
