@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2018 Sage Intacct, Inc.
+ * Copyright 2020 Sage Intacct, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -18,15 +18,26 @@ $loader = require __DIR__ . '/vendor/autoload.php';
 
 use Intacct\OnlineClient;
 use Intacct\ClientConfig;
+use Monolog\Formatter\HtmlFormatter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
-$handler = new \Monolog\Handler\StreamHandler(__DIR__ . '/logs/intacct.html');
-$handler->setFormatter(new \Monolog\Formatter\HtmlFormatter());
+try {
+    $handler = new StreamHandler(__DIR__ . '/logs/intacct.html');
 
-$logger = new \Monolog\Logger('intacct-sdk-php-examples');
-$logger->pushHandler($handler);
+    $handler->setFormatter(new HtmlFormatter());
 
-$clientConfig = new ClientConfig();
-$clientConfig->setProfileFile(__DIR__ . '/.credentials.ini');
-$clientConfig->setLogger($logger);
+    $logger = new Logger('intacct-sdk-php-examples');
+    $logger->pushHandler($handler);
 
-$client = new OnlineClient($clientConfig);
+    $clientConfig = new ClientConfig();
+    $clientConfig->setProfileFile(__DIR__ . '/.credentials.ini');
+    $clientConfig->setLogger($logger);
+
+    $client = new OnlineClient($clientConfig);
+} catch (Exception $ex) {
+        $logger->error('An exception was thrown', [
+            get_class($ex) => $ex->getMessage(),
+        ]);
+        echo get_class($ex) . ': ' . $ex->getMessage();
+}

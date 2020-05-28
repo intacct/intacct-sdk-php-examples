@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2018 Sage Intacct, Inc.
+ * Copyright 2020 Sage Intacct, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -16,11 +16,11 @@
 
 require __DIR__ . '/bootstrap.php';
 
+use Intacct\Exception\ResponseException;
 use Intacct\Functions\AccountsReceivable\CustomerCreate;
 use Intacct\Functions\AccountsReceivable\CustomerDelete;
 use Intacct\Functions\AccountsReceivable\CustomerUpdate;
 use Intacct\Functions\Common\Read;
-use Intacct\Functions\Common\ReadByName;
 
 try {
     $logger->info('Executing CRUD customer functions to API');
@@ -32,8 +32,8 @@ try {
     $response = $client->execute($create);
     $result = $response->getResult();
 
-    $customerId = strval($result->getData()[0]->{'CUSTOMERID'});
-    $recordNo = intval($result->getData()[0]->{'RECORDNO'});
+    $customerId = (string) $result->getData()[0]->{'CUSTOMERID'};
+    $recordNo = (int) $result->getData()[0]->{'RECORDNO'};
 
     echo "Created inactive customer ID $customerId" . PHP_EOL;
 
@@ -67,13 +67,13 @@ try {
 
     echo "Deleted customer ID $customerId" . PHP_EOL;
 
-} catch (\Intacct\Exception\ResponseException $ex) {
+} catch (ResponseException $ex) {
     $logger->error('An Intacct response exception was thrown', [
         get_class($ex) => $ex->getMessage(),
         'Errors' => $ex->getErrors(),
     ]);
     echo 'Failed! ' . $ex->getMessage();
-} catch (\Exception $ex) {
+} catch (Exception $ex) {
     $logger->error('An exception was thrown', [
         get_class($ex) => $ex->getMessage(),
     ]);

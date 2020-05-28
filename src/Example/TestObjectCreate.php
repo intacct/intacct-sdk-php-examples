@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2018 Sage Intacct, Inc.
+ * Copyright 2020 Sage Intacct, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -17,6 +17,7 @@
 namespace Intacct\Example;
 
 use Intacct\Xml\XMLWriter;
+use InvalidArgumentException;
 
 class TestObjectCreate extends AbstractTestObject
 {
@@ -33,7 +34,7 @@ class TestObjectCreate extends AbstractTestObject
         $xml->startElement(self::INTEGRATION_NAME); // Integration name in the system.
 
         if (!$this->getName()) {
-            throw new \InvalidArgumentException('Name field is required for create');
+            throw new InvalidArgumentException('Name field is required for create');
         }
 
         $xml->writeElement('name', $this->getName(), true);
