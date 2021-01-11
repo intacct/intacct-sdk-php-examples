@@ -10,9 +10,9 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
-    "intacct/intacct-sdk-php": "^2.2.0",
-    "monolog/monolog": "^1.22.0",
+    "php": ">=7.3",
+    "intacct/intacct-sdk-php": "^3.0.0",
+    "monolog/monolog": "^2.2.0",
     "ext-json": "*"
   },
   "autoload": {
